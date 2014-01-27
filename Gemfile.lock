@@ -63,7 +63,10 @@ GEM
       callsite
       rack-contrib
       railties
+    metaclass (0.0.2)
     mime-types (1.25.1)
+    mocha (1.0.0)
+      metaclass (~> 0.0.1)
     multi_json (1.8.4)
     nifty-generators (0.4.6)
     polyglot (0.3.3)
@@ -127,7 +130,8 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   meta_request
-  nifty-generators (>= 0.4.0)
+  mocha
+  nifty-generators
   rails (= 3.2.0)
   sass-rails (~> 3.2.3)
   sqlite3

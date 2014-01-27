@@ -6,7 +6,7 @@ gem 'rails', '3.2.0'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 
-gem 'nifty-generators', '>= 0.4.0'
+#gem 'nifty-generators', '>= 0.4.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,6 +28,7 @@ group :development do
   gem 'meta_request'
   gem 'therubyracer', platforms: :ruby
   gem 'sqlite3'
+  gem "nifty-generators"
 end 
  
  group :production do
@@ -50,3 +51,5 @@ end
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+gem "mocha", :group => :test
