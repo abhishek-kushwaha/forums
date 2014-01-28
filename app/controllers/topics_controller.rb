@@ -9,12 +9,19 @@ class TopicsController < ApplicationController
 
   def new
     @topic = Topic.new
+    @post = Post.new
   end
 
   def create
     @topic = Topic.new(params[:topic])
     if @topic.save
-      redirect_to @topic, :notice => "Successfully created topic."
+      @topic = Topic.new(:name => params[:topic][:name], :forum_id => params[:topic][:forum_id])
+      @post = Post.new(:content => params[:post][:content], :topic_id => Topic.first.id)
+      if @post.save
+      redirect_to "/forums/#{@topic.forum_id}", :notice => "Successfully created topic."
+    else
+      render :action => 'new'
+    end
     else
       render :action => 'new'
     end
