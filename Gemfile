@@ -29,6 +29,7 @@ group :development do
   gem 'therubyracer', platforms: :ruby
   gem 'sqlite3'
   gem "nifty-generators"
+   gem "bcrypt-ruby", :require => "bcrypt"
 end 
  
  group :production do

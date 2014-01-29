@@ -1,8 +1,5 @@
 class TopicsController < ApplicationController
-  def index
-    @topics = Topic.all
-  end
-
+  
   def show
     @topic = Topic.find(params[:id])
   end
@@ -13,10 +10,13 @@ class TopicsController < ApplicationController
   end
 
   def create
+    params[:topic][:last_poster_id] = current_user.id
+    params[:topic][:last_post_at] = Time.now
+    params[:topic][:user_id] = current_user.id
     @topic = Topic.new(params[:topic])
     if @topic.save
-      @topic = Topic.new(:name => params[:topic][:name], :forum_id => params[:topic][:forum_id])
-      @post = Post.new(:content => params[:post][:content], :topic_id => Topic.first.id)
+      @topic = Topic.new(:name => params[:topic][:name], :last_poster_id => params[:topic][:last_poster_id], :last_post_at => params[:topic][:last_post_at], :forum_id => params[:topic][:forum_id], :user_id => params[:topic][:user_id])
+      @post = Post.new(:content => params[:post][:content], :topic_id => Topic.first.id, :user_id => current_user.id)
       if @post.save
       redirect_to "/forums/#{@topic.forum_id}", :notice => "Successfully created topic."
     else
@@ -34,7 +34,7 @@ class TopicsController < ApplicationController
   def update
     @topic = Topic.find(params[:id])
     if @topic.update_attributes(params[:topic])
-      redirect_to @topic, :notice  => "Successfully updated topic."
+      redirect_to "/forums/#{@topic.forum_id}", :notice => "Successfully updated topic."
     else
       render :action => 'edit'
     end
@@ -43,6 +43,6 @@ class TopicsController < ApplicationController
   def destroy
     @topic = Topic.find(params[:id])
     @topic.destroy
-    redirect_to topics_url, :notice => "Successfully destroyed topic."
+    redirect_to "/forums/#{@topic.forum_id}", :notice => "Successfully deleted topic."
   end
 end
