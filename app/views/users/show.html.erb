@@ -1,0 +1,10 @@
+<% title 'Name: ' + @user.username %>  
+<div id="topics">
+  <strong>bio</strong>
+  <p>lorem ipsum</p>
+  <strong>topics</strong>  
+  <% @user.topics.each do |topic| %>  
+    <%= link_to topic.name, topic_url(topic.forum.id) %>  
+  <% end %>  
+</div>  
+
