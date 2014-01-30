@@ -2,6 +2,7 @@ class TopicsController < ApplicationController
   
   def show
     @topic = Topic.find(params[:id])
+    @posts = Post.find(:all)
   end
 
   def new
@@ -29,10 +30,12 @@ class TopicsController < ApplicationController
 
   def edit
     @topic = Topic.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def update
     @topic = Topic.find(params[:id])
+    @post = Post.find(params[:id])
     if @topic.update_attributes(params[:topic])
       redirect_to "/forums/#{@topic.forum_id}", :notice => "Successfully updated topic."
     else
@@ -42,6 +45,7 @@ class TopicsController < ApplicationController
 
   def destroy
     @topic = Topic.find(params[:id])
+    @post = Post.find(params[:id])
     @topic.destroy
     redirect_to "/forums/#{@topic.forum_id}", :notice => "Successfully deleted topic."
   end

@@ -1,7 +1,9 @@
 Forums::Application.routes.draw do
-  resources :posts
+  
 
   resources :topics
+
+  resources :posts
 
   resources :forums
 
