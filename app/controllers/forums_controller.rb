@@ -1,4 +1,5 @@
 class ForumsController < ApplicationController
+  before_filter :admin_required, :expect => [:index, :show]
   def index
     @forums = Forum.all
   end

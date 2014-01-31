@@ -14,12 +14,17 @@
 		<%= time_ago_in_words(topic.last_post_at) %> ago by 
 		<%= link_to topic.user.username, "/users/#{topic.last_poster_id}" %>
 		</td>
-		<td><%= link_to "Destroy", topic, :confirm => 'Are you sure?', :method => :delete %></td>
+		<td>
+		<% if admin? %>
+		<%= link_to "Destroy", topic, :confirm => 'Are you sure?', :method => :delete %>
+		<% end %>
+		</td>
 	</tr>
 	<% end %>
 </table>
 <p>
-  
+  <% if logged_in? %>
   <%= link_to "New Topic", "/topics/new?forum=#{@forum.id}" %> <%= link_to "Forum list", forums_path %>
+  <% end %>
 </p>
 

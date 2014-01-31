@@ -18,10 +18,12 @@
           no posts
         <% end %>
       </td>
+      <% if admin? %>
       <td><%= link_to "Edit", edit_forum_path(forum) %></td>
       <td><%= link_to "Destroy", forum, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Forum", new_forum_path %></p>
+<p><% if admin? %><%= link_to "New Forum", new_forum_path %><% end %></p>
