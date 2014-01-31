@@ -5,9 +5,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(:content => params[:post][:content], :topic_id => params[:post][:topic_id], :user_id => current_user.id)
     if @post.save
-      redirect_to @post, :notice => "Successfully created post."
+      @topic = Topic.find(@post.topic_id)
+      @topic.update_attributes(:last_poster_id => current_user.id, :last_post_at => Time.now)
+      redirect_to "/topics/#{@post.topic_id}", :notice => "Successfully created post."
     else
       render :action => 'new'
     end
@@ -15,12 +17,15 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @topic = Topic.find(@post.topic_id)
   end
 
   def update
     @post = Post.find(params[:id])
     if @post.update_attributes(params[:post])
-      redirect_to @post, :notice  => "Successfully updated post."
+      @topic = Topic.find(@post.topic_id)
+      @topic.update_attributes(:last_poster_id => current_user.id, :last_post_at => Time.now)
+      redirect_to "/topics/#{@post.topic_id}", :notice  => "Successfully updated post."
     else
       render :action => 'edit'
     end

@@ -28,21 +28,7 @@ class TopicsController < ApplicationController
     end
   end
 
-  def edit
-    @topic = Topic.find(params[:id])
-    @post = Post.find(params[:id])
-  end
-
-  def update
-    @topic = Topic.find(params[:id])
-    @post = Post.find(params[:id])
-    if @topic.update_attributes(params[:topic])
-      redirect_to "/forums/#{@topic.forum_id}", :notice => "Successfully updated topic."
-    else
-      render :action => 'edit'
-    end
-  end
-
+  
   def destroy
     @topic = Topic.find(params[:id])
     @post = Post.find(params[:id])
